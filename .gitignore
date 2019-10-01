@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# ye olde .DS_Store on macintosh
+.DS_Store

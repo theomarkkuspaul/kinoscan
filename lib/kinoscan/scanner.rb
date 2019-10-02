@@ -7,8 +7,9 @@ module Kinoscan
 
     HEX_COLOUR_MAX = 50
 
-    def initialize(image_path)
+    def initialize(image_path, zip_output_path: nil)
       @image_path = image_path
+      @zip_output_path = zip_output_path
       @file_name = File.basename(image_path, ".*")
       @image = ::MiniMagick::Image.open image_path
       @pixels = @image.get_pixels
@@ -119,6 +120,7 @@ module Kinoscan
       puts 'Zipping frames'
 
       zipfile_name = "#{@file_name}-frames.zip"
+      zipfile_name = "#{@zip_output_path}/#{zipfile_name}" if zipfile_name
 
       zip = Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         (1..4).each do |id|

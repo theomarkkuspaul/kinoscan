@@ -42,4 +42,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
 
   spec.add_dependency "mini_magick", "~> 4.9"
+  spec.add_dependency "rubyzip", "2.0.0"
 end

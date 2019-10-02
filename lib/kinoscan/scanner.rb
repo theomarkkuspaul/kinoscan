@@ -3,7 +3,7 @@
 # - Supplied image must must be in portrait orientation
 
 module Kinoscan
-  class ScanService
+  class Scanner
 
     HEX_COLOUR_MAX = 50
 
@@ -28,6 +28,8 @@ module Kinoscan
         puts "Saving frame #{idx}"
         save_new_image(frame, idx)
       end
+
+      zip_frames
     end
 
     def collect_black_rows(image)
@@ -107,6 +109,24 @@ module Kinoscan
       img = MiniMagick::Image.import_pixels(blob, new_image_width, new_image_height, 8, "rgb", "jpg")
 
       img.write(output_file_name)
+    end
+
+    def zip_frames
+      puts 'Zipping frames'
+
+      zipfile_name = "#{@file_name}-frames.zip"
+
+      zip = Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        (1..4).each do |id|
+          file_name = "#{@file_name}-#{id}.jpg"
+          zipfile.add(file_name, file_name)
+        end
+
+        zipfile
+      end
+
+      puts "Finished scanning: #{@image_path}"
+      zip
     end
   end
 end

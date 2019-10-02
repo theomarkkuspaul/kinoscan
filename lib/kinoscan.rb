@@ -1,6 +1,7 @@
 require "kinoscan/version"
 require "kinoscan/scanner"
 
+require 'zip'
 require 'mini_magick'
 
 module Kinoscan

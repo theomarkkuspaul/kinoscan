@@ -30,6 +30,8 @@ module Kinoscan
       end
 
       zip_frames
+
+      puts "Finished scanning: #{@image_path}"
     end
 
     def collect_black_rows(image)
@@ -125,7 +127,6 @@ module Kinoscan
         zipfile
       end
 
-      puts "Finished scanning: #{@image_path}"
       zip
     end
   end

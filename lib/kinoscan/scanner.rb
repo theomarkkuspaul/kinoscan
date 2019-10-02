@@ -34,6 +34,8 @@ module Kinoscan
       puts "Finished scanning: #{@image_path}"
     end
 
+    private
+
     def collect_black_rows(image)
       black_pixels = []
 

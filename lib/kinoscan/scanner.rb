@@ -7,9 +7,9 @@ module Kinoscan
 
     HEX_COLOUR_MAX = 50
 
-    def initialize(image_path, zip_output_path: nil)
+    def initialize(image_path, output_path: nil)
       @image_path = image_path
-      @zip_output_path = zip_output_path
+      @output_path = output_path
       @file_name = File.basename(image_path, ".*")
       @image = ::MiniMagick::Image.open image_path
       @pixels = @image.get_pixels
@@ -100,6 +100,7 @@ module Kinoscan
 
         exposures = [@pixels[first_image_bounds], @pixels[second_image_bounds], @pixels[third_image_bounds], @pixels[fourth_image_bounds]]
       end 
+
       exposures
     end
 
@@ -109,23 +110,27 @@ module Kinoscan
 
       output_file_name = "#{@file_name}-#{idx}.jpg"
 
+      image_file_path = "#{@output_path}/#{output_file_name}"
+
+      puts "New image file path: #{image_file_path}"
+
       blob = frame.compact.flatten.pack("C*")
 
       img = MiniMagick::Image.import_pixels(blob, new_image_width, new_image_height, 8, "rgb", "jpg")
 
-      img.write(output_file_name)
+      img.write(image_file_path)
     end
 
     def zip_frames
       puts 'Zipping frames'
 
       zipfile_name = "#{@file_name}-frames.zip"
-      zipfile_name = "#{@zip_output_path}/#{zipfile_name}" if zipfile_name
 
       zip = Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         (1..4).each do |id|
-          file_name = "#{@file_name}-#{id}.jpg"
-          zipfile.add(file_name, file_name)
+          file_path = "#{@file_name}-#{id}.jpg"
+          file_path = "#{@output_path}/#{@file_name}-#{id}.jpg" if @output_path
+          zipfile.add("#{@file_name}-#{id}.jpg", file_path)
         end
 
         zipfile

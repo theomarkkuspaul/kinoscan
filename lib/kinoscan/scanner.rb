@@ -122,11 +122,13 @@ module Kinoscan
     end
 
     def zip_frames
-      puts 'Zipping frames'
-
       zipfile_name = "#{@file_name}-frames.zip"
 
-      zip = Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      zipfile_path = "#{zipfile_name}"
+      zipfile_path = "#{@output_path}/#{zipfile_path}" if @output_path
+
+      puts "Zipping frames: #{zipfile_path}"
+      zip = Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
         (1..4).each do |id|
           file_path = "#{@file_name}-#{id}.jpg"
           file_path = "#{@output_path}/#{@file_name}-#{id}.jpg" if @output_path

@@ -39,4 +39,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry"
+
+  spec.add_dependency "mini_magick", "~> 4.9"
+  spec.add_dependency "rubyzip", "2.0.0"
 end

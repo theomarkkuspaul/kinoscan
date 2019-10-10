@@ -1,5 +1,6 @@
 require "kinoscan/version"
 require "kinoscan/scanner"
+require "kinoscan/zipper"
 
 require 'zip'
 require 'mini_magick'

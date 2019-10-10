@@ -12,6 +12,7 @@ module Kinoscan
       @output_path = output_path
       @file_name = File.basename(image_path, ".*")
       @image = ::MiniMagick::Image.open image_path
+      @frame_paths = []
       @pixels = @image.get_pixels
       self
     end
@@ -30,9 +31,8 @@ module Kinoscan
         save_new_image(frame, idx)
       end
 
-      zip_frames
-
       puts "Finished scanning: #{@image_path}"
+      @frame_paths
     end
 
     private
@@ -110,7 +110,7 @@ module Kinoscan
 
       output_file_name = "#{@file_name}-#{idx}.jpg"
 
-      image_file_path = "#{@output_path}/#{output_file_name}"
+      image_file_path = "./#{output_file_name}"
 
       puts "New image file path: #{image_file_path}"
 
@@ -119,26 +119,8 @@ module Kinoscan
       img = MiniMagick::Image.import_pixels(blob, new_image_width, new_image_height, 8, "rgb", "jpg")
 
       img.write(image_file_path)
+      @frame_paths << image_file_path
     end
 
-    def zip_frames
-      zipfile_name = "#{@file_name}-frames.zip"
-
-      zipfile_path = "#{zipfile_name}"
-      zipfile_path = "#{@output_path}/#{zipfile_path}" if @output_path
-
-      puts "Zipping frames: #{zipfile_path}"
-      zip = Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-        (1..4).each do |id|
-          file_path = "#{@file_name}-#{id}.jpg"
-          file_path = "#{@output_path}/#{@file_name}-#{id}.jpg" if @output_path
-          zipfile.add("#{@file_name}-#{id}.jpg", file_path)
-        end
-
-        zipfile
-      end
-
-      zip
-    end
   end
 end

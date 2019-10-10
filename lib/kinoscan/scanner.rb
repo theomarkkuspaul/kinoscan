@@ -12,6 +12,7 @@ module Kinoscan
       @output_path = output_path
       @file_name = File.basename(image_path, ".*")
       @image = ::MiniMagick::Image.open image_path
+      @frame_paths = []
       @pixels = @image.get_pixels
       self
     end
@@ -31,7 +32,7 @@ module Kinoscan
       end
 
       puts "Finished scanning: #{@image_path}"
-      frames
+      @frame_paths
     end
 
     private
@@ -109,7 +110,7 @@ module Kinoscan
 
       output_file_name = "#{@file_name}-#{idx}.jpg"
 
-      image_file_path = "#{@output_path}/#{output_file_name}"
+      image_file_path = "./#{output_file_name}"
 
       puts "New image file path: #{image_file_path}"
 
@@ -118,6 +119,7 @@ module Kinoscan
       img = MiniMagick::Image.import_pixels(blob, new_image_width, new_image_height, 8, "rgb", "jpg")
 
       img.write(image_file_path)
+      @frame_paths << image_file_path
     end
 
   end

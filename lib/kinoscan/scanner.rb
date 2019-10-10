@@ -30,9 +30,8 @@ module Kinoscan
         save_new_image(frame, idx)
       end
 
-      zip_frames
-
       puts "Finished scanning: #{@image_path}"
+      frames
     end
 
     private
@@ -121,24 +120,5 @@ module Kinoscan
       img.write(image_file_path)
     end
 
-    def zip_frames
-      zipfile_name = "#{@file_name}-frames.zip"
-
-      zipfile_path = "#{zipfile_name}"
-      zipfile_path = "#{@output_path}/#{zipfile_path}" if @output_path
-
-      puts "Zipping frames: #{zipfile_path}"
-      zip = Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-        (1..4).each do |id|
-          file_path = "#{@file_name}-#{id}.jpg"
-          file_path = "#{@output_path}/#{@file_name}-#{id}.jpg" if @output_path
-          zipfile.add("#{@file_name}-#{id}.jpg", file_path)
-        end
-
-        zipfile
-      end
-
-      zip
-    end
   end
 end

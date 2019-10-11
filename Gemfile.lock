@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/theomarkkuspaul/minimagick.git
-  revision: 916b89589a4486ba6d1d417b495a2affe0d08a7a
+  revision: 3d5e4d38c3164a44081c5cc934d207f29c97f25a
   specs:
     mini_magick (4.9.5)
 

@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/theomarkkuspaul/minimagick.git
-  revision: 3d5e4d38c3164a44081c5cc934d207f29c97f25a
+  remote: https://github.com/minimagick/minimagick.git
+  revision: 259105c42790910939a570ffd6a66d56a0ff7b11
   specs:
     mini_magick (4.9.5)
 
@@ -8,7 +8,7 @@ PATH
   remote: .
   specs:
     kinoscan (0.1.0)
-      mini_magick (~> 4.9)
+      mini_magick
       rubyzip (= 2.0.0)
 
 GEM

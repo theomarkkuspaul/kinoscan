@@ -11,7 +11,7 @@ module Kinoscan
       @image_path = image_path
       @output_path = output_path
       @file_name = File.basename(image_path, ".*")
-      @image = ::MiniMagick::Image.open image_path
+      @image = load_image(image_path)
       @frame_paths = []
       @pixels = @image.get_pixels
       self
@@ -122,5 +122,10 @@ module Kinoscan
       @frame_paths << image_file_path
     end
 
+    def load_image(image_path)
+      image = ::MiniMagick::Image.open image_path
+      image = image.rotate(90) if image.landscape?
+      image
+    end
   end
 end

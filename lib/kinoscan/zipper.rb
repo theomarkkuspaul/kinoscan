@@ -17,7 +17,15 @@ module Kinoscan
         zipfile
       end
 
-      zip
+      options = {
+        cloud_name: "dfhcqhhie",
+        api_key: ENV['CLOUDINARY_API_KEY'],
+        api_secret: ENV['CLOUDINARY_SECRET_KEY'],
+        resource_type: :raw
+      }
+
+      # upload to da cloud
+      Cloudinary::Uploader.upload(output_dest, options)
     end
 
   end

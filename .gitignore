@@ -12,3 +12,8 @@
 
 # ye olde .DS_Store on macintosh
 .DS_Store
+
+*.jpg
+
+# we do not want a built gem in source control
+*.gem

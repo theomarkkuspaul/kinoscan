@@ -43,4 +43,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "mini_magick"
   spec.add_dependency "rubyzip", "2.0.0"
+  spec.add_dependency "cloudinary"
 end

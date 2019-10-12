@@ -4,6 +4,7 @@ require "kinoscan/zipper"
 
 require 'zip'
 require 'mini_magick'
+require 'cloudinary'
 
 module Kinoscan
   class Error < StandardError; end

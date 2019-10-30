@@ -118,8 +118,23 @@ module Kinoscan
 
       img = MiniMagick::Image.import_pixels(blob, new_image_width, new_image_height, 8, "rgb", "jpg")
 
-      img.write(image_file_path)
+      save_to_cloud(img, image_file_path)
+
       @frame_paths << image_file_path
+    end
+
+    def save_to_cloud(img, file_path)
+      # save image to disk
+      img.write(file_path)
+
+      auth = {
+        cloud_name: "dfhcqhhie",
+        api_key: ENV['CLOUDINARY_API_KEY'],
+        api_secret: ENV['CLOUDINARY_SECRET_KEY']
+      }
+
+      # upload to da cloud
+      Cloudinary::Uploader.upload(img.path, auth)
     end
 
     def load_image(image_path)
